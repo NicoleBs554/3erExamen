@@ -25,7 +25,7 @@ void Consola() {
     leerPets(nombreArchivoPets);
 
     do {
-        cout << "¿Que archivo desea gestionar?" << endl;
+        cout << "Que archivo desea gestionar?" << endl;
         cout << "1. Owners" << endl;
         cout << "2. Pets" << endl;
         cout << "3. Cerrar el programa" << endl;

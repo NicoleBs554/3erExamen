@@ -19,8 +19,8 @@ public:
     string getGenero() const { return Genero; }
     string getEdad() const { return Edad; }
 
-    void setPets_id(const int &pets_id) { this->Pets_id = pets_id; }
-    void setOwner_id(const int &owners_id) { this->Owners_id = owners_id; }
+    void setPets_id(const string &pets_id) { this->Pets_id = atoi(pets_id.c_str()); }
+    void setOwner_id(const string &owners_id) { this->Owners_id = atoi(owners_id.c_str()); }
     void setPets_Name(const string &pets_name) { this->Pets_Name = pets_name; }
     void setEspecie(const string &especie) { this->Especie = especie; }
     void setGenero(const string &genero) { this->Genero = genero; }
