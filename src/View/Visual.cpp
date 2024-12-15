@@ -35,7 +35,7 @@ void Consola() {
             case 1: 
                 int ownerOption;
                 do {
-                    cout << "Seleccione una opcin para Owners:" << endl;
+                    cout << "Seleccione una opcion para Owners:" << endl;
                     cout << "1. Leer Owners" << endl;
                     cout << "2. Guardar Owners" << endl;
                     cout << "3. Insertar Owner" << endl;
