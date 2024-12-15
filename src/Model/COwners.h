@@ -12,7 +12,7 @@ public:
 
     Owners(int cedulaOwner, string IdOwner, string nombre, string apellido, string telefono, string direccion, string email)
         : Owner_id(cedulaOwner), Nombre(nombre), Apellido(apellido), Telefono(telefono), Direccion(direccion), Email(email) {}
-
+    
     int getOwner_id() const { return Owner_id; }
     string getNombre() const { return Nombre; }
     string getApellido() const { return Apellido; }
@@ -20,7 +20,7 @@ public:
     string getDireccion() const { return Direccion; }
     string getEmail() const { return Email; }
 
-    void setOwner_id(const string &cedulaOwner) { this->Owner_id = atoi(cedulaOwner.c_str()); }
+    void setOwner_id(const int &cedulaOwner) { this->Owner_id = cedulaOwner; }
     void setNombre(const string &nombre) { this->Nombre = nombre; }
     void setApellido(const string &apellido) { this->Apellido = apellido; }
     void setTelefono(const string &telefono) { this->Telefono = telefono; }

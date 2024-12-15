@@ -1,5 +1,7 @@
+#pragma once
 #include "../Model/CPets.h"
 #include <string>
+#include <cctype> 
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -8,8 +10,24 @@ using namespace std;
 extern Pets* petPtr; 
 extern int petCount;
 
+bool esNumero(const string& str) {
+    if (str.empty()) return false; 
+    for (char c : str) {
+        if (!isdigit(c)) return false; 
+    }
+    return true;
+}
+
+int convertirAEntero(const string& str) {
+    int resultado = 0;
+    for (char c : str) {
+        resultado = resultado * 10 + (c - '0'); 
+    }
+    return resultado;
+}
+
 void leerPets(const string &petsFile) {
-    ifstream archivoPets("../bin/pets.csv");
+    ifstream archivoPets("../bin/Pets.csv");
     string line;
 
     if (!archivoPets.is_open()) {
@@ -24,9 +42,19 @@ void leerPets(const string &petsFile) {
         string tempStr;
 
         getline(ss, tempStr, ',');
-        pet.setPets_id(stoi(tempStr)); 
+        if (esNumero(tempStr)) {
+            pet.setPets_id(convertirAEntero(tempStr)); 
+        } else {
+            cout << "Error: ID de mascota no válido: " << tempStr << endl;
+            continue; 
+        }
         getline(ss, tempStr, ',');
-        pet.setOwner_id(stoi(tempStr)); 
+        if (esNumero(tempStr)) {
+            pet.setOwner_id(convertirAEntero(tempStr)); 
+        } else {
+            cout << "Error: ID de propietario no válido: " << tempStr << endl;
+            continue; 
+        }
         getline(ss, tempStr, ',');
         pet.setPets_Name(tempStr); 
         getline(ss, tempStr, ',');
@@ -49,8 +77,8 @@ void leerPets(const string &petsFile) {
 }
 
 void guardarPets(const string &petsFile) {
-    ofstream file("../bin/pets.csv");
-    file << "PetsID, OwnerID, Pets_Name, Especie, Genero, Edad\n"; // Cambiado encabezados
+    ofstream file("../bin/Pets.csv");
+    file << "PetsID, OwnerID, Pets_Name, Especie, Genero, Edad\n"; 
     for (int i = 0; i < petCount; i++) {
         file << petPtr[i].getPets_id() << ","
              << petPtr[i].getOwner_id() << ","
@@ -65,16 +93,26 @@ void guardarPets(const string &petsFile) {
 void insertarPets() {
     Pets pet; 
     cout << "Ingrese los datos de la mascota: " << endl;
-    string pets_id, owner_id, pets_name, especie, genero, edad; // Cambiado a edad
+    string pets_id, owner_id, pets_name, especie, genero, edad; 
     cin >> pets_id >> owner_id >> pets_name >> especie >> genero >> edad;
-    pet.setPets_id(stoi(pets_id)); 
-    pet.setOwner_id(stoi(owner_id)); 
+    if (esNumero(pets_id)) {
+        pet.setPets_id(convertirAEntero(pets_id)); 
+    } else {
+        cout << "Error: ID de mascota no válido." << endl;
+        return; 
+    }
+    if (esNumero(owner_id)) {
+        pet.setOwner_id(convertirAEntero(owner_id)); 
+    } else {
+        cout << "Error: ID de propietario no válido." << endl;
+        return; 
+    }
     pet.setPets_Name(pets_name); 
     pet.setEspecie(especie); 
     pet.setGenero(genero); 
     pet.setEdad(edad); 
 
-    cout << "¿Desea confirmar la inserción de la mascota? (si/no): ";
+    cout << "¿Desea confirmar la insercion de la mascota? (si/no): ";
     char confirmacion;
     cin >> confirmacion;
 
@@ -88,7 +126,7 @@ void insertarPets() {
         delete[] petPtr;
         petPtr = temp;
         petCount++;
-        guardarPets("../bin/pets.csv");
+        guardarPets("../bin/Pets.csv");
         cout << "Mascota insertada" << endl;
     } else {
         cout << "Inserción cancelada" << endl;
@@ -96,14 +134,24 @@ void insertarPets() {
 }
 
 void actualizarPets(const string &pets_id) {
+    if (!esNumero(pets_id)) {
+        cout << "Error: ID de mascota no valido." << endl;
+        return; 
+    }
+    int pets_id_int = convertirAEntero(pets_id); 
     for (int i = 0; i < petCount; i++) {
-        if (petPtr[i].getPets_id() == stoi(pets_id)) { 
+        if (petPtr[i].getPets_id() == pets_id_int) { 
             Pets original = petPtr[i]; 
             Pets &pet = petPtr[i]; 
             cout << "Ingrese nuevos datos: " << endl;
             string owner_id, pets_name, especie, genero, edad; 
             cin >> owner_id >> pets_name >> especie >> genero >> edad;
-            pet.setOwner_id(stoi(owner_id)); 
+            if (esNumero(owner_id)) {
+                pet.setOwner_id(convertirAEntero(owner_id)); 
+            } else {
+                cout << "Error: ID de propietario no válido." << endl;
+                return; 
+            }
             pet.setPets_Name(pets_name); 
             pet.setEspecie(especie); 
             pet.setGenero(genero); 
@@ -113,7 +161,7 @@ void actualizarPets(const string &pets_id) {
             cin >> confirmacion;
 
             if (confirmacion == 's' || confirmacion == 'S') {
-                guardarPets("../bin/pets.csv");
+                guardarPets("../bin/Pets.csv");
                 cout << "Cambios confirmados y guardados" << endl;
             } else {
                 petPtr[i] = original; 
@@ -125,8 +173,13 @@ void actualizarPets(const string &pets_id) {
     cout << "Mascota no encontrada." << endl;
 }
 void borrarPets(const string &pets_id) {
+    if (!esNumero(pets_id)) {
+        cout << "Error: ID de mascota no válido." << endl;
+        return; 
+    }
+    int pets_id_int = convertirAEntero(pets_id);
     for (int i = 0; i < petCount; i++) {
-        if (petPtr[i].getPets_id() == stoi(pets_id)) { 
+        if (petPtr[i].getPets_id() == pets_id_int) { 
             cout << "¿Está seguro de que desea eliminar la mascota con ID " << pets_id << "? (s/n): ";
             char confirmacion;
             cin >> confirmacion;
@@ -140,7 +193,7 @@ void borrarPets(const string &pets_id) {
                 delete[] petPtr; 
                 petPtr = temp; 
                 petCount--; 
-                guardarPets("../bin/pets.csv"); 
+                guardarPets("../bin/Pets.csv");
                 cout << "Mascota ha sido eliminada" << endl;
             } else {
                 cout << "Eliminación cancelada" << endl;

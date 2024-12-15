@@ -8,7 +8,7 @@ private:
     string Pets_Name, Especie, Genero, Edad;
 public:
     Pets() : Pets_id(0), Owners_id(0), Pets_Name(""), Especie(""), Genero(""), Edad("") {}
-
+    
     Pets(int pets_id, int owners_id, string pets_name, string especie, string genero, string edad)
         : Pets_id(pets_id), Owners_id(owners_id), Pets_Name(pets_name), Especie(especie), Genero(genero), Edad(edad) {}
 

@@ -25,29 +25,29 @@ void Consola() {
     leerPets(nombreArchivoPets);
 
     do {
-        cout << "¿Qué archivo desea gestionar?" << endl;
+        cout << "¿Que archivo desea gestionar?" << endl;
         cout << "1. Owners" << endl;
         cout << "2. Pets" << endl;
         cout << "3. Cerrar el programa" << endl;
         cin >> opcion;
 
         switch (opcion) {
-            case 1: // Gestión de Owners
+            case 1: 
                 int ownerOption;
                 do {
-                    cout << "Seleccione una opción para Owners:" << endl;
+                    cout << "Seleccione una opcin para Owners:" << endl;
                     cout << "1. Leer Owners" << endl;
                     cout << "2. Guardar Owners" << endl;
                     cout << "3. Insertar Owner" << endl;
                     cout << "4. Actualizar Owner" << endl;
                     cout << "5. Borrar Owner" << endl;
-                    cout << "6. Volver al menú principal" << endl;
+                    cout << "6. Volver al menu principal" << endl;
                     cin >> ownerOption;
 
                     switch (ownerOption) {
                         case 1:
                             leerOwners(nombreArchivoOwners);
-                            cout << "Owners leídos correctamente." << endl;
+                            cout << "Owners leidos correctamente." << endl;
                             break;
                         case 2:
                             cout << "¿Desea guardar los cambios realizados? (s/n): ";
@@ -64,14 +64,14 @@ void Consola() {
                             break;
                         case 4: {
                             string cedula;
-                            cout << "Ingrese la cédula del owner a actualizar: ";
+                            cout << "Ingrese la cedula del owner a actualizar: ";
                             cin >> cedula;
                             actualizarOwners(cedula);
                             break;
                         }
                         case 5: {
                             string cedula;
-                            cout << "Ingrese la cédula del owner a borrar: ";
+                            cout << "Ingrese la cedula del owner a borrar: ";
                             cin >> cedula;
                             borrarOwners(cedula);
                             break;
@@ -79,7 +79,7 @@ void Consola() {
                         case 6:
                             break;
                         default:
-                            cout << "Opción no válida." << endl;
+                            cout << "Opcion no valida." << endl;
                     }
                 } while (ownerOption != 6);
                 break;
@@ -87,19 +87,19 @@ void Consola() {
             case 2: 
                 int petOption;
                 do {
-                    cout << "Seleccione una opción para Pets:" << endl;
+                    cout << "Seleccione una opcion para Pets:" << endl;
                     cout << "1. Leer Pets" << endl;
                     cout << "2. Guardar Pets" << endl;
                     cout << "3. Insertar Pet" << endl;
                     cout << "4. Actualizar Pet" << endl;
                     cout << "5. Borrar Pet" << endl;
-                    cout << "6. Volver al menú principal" << endl;
+                    cout << "6. Volver al menu principal" << endl;
                     cin >> petOption;
 
                     switch (petOption) {
                         case 1:
                             leerPets(nombreArchivoPets);
-                            cout << "Pets leídos correctamente." << endl;
+                            cout << "Pets leidos correctamente." << endl;
                             break;
                         case 2:
                             cout << "¿Desea guardar los cambios realizados? (s/n): ";
@@ -131,7 +131,7 @@ void Consola() {
                         case 6:
                             break;
                         default:
-                            cout << "Opción no válida." << endl;
+                            cout << "Opcion no valida." << endl;
                     }
                 } while (petOption != 6);
                 break;
@@ -141,7 +141,7 @@ void Consola() {
                 break;
 
             default:
-                cout << "Opción no válida. Por favor, seleccione 1, 2 o 3." << endl;
+                cout << "Opcion no válida. Por favor, seleccione 1, 2 o 3." << endl;
         }
     } while (opcion != 3);
 
